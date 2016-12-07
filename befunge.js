@@ -12,7 +12,18 @@ let dir = "right";
 let x = -1;
 let y = 0;
 let stack = [];
-let input = [];
+let input;
+
+function get(x, y) {
+  return input[y] && input[y][x];
+}
+
+function put(x, y, v) {
+  if (!(y in input)) {
+    input[y] = [];
+  }
+  input[y][x] = v;
+}
 
 function move() {
   switch (dir) {
@@ -29,7 +40,7 @@ function move() {
       y++;
       break;
   }
-  return input[y][x];
+  return get(x, y);
 }
 
 function prompt() {
@@ -229,7 +240,7 @@ function next() {
     case "g": {
       let y = toNumber(stack.pop());
       let x = toNumber(stack.pop());
-      stack.push(toASCII(input[y][x]));
+      stack.push(toASCII(get(x, y)));
       break;
     }
     // Put character
@@ -237,7 +248,7 @@ function next() {
       let y = toNumber(stack.pop());
       let x = toNumber(stack.pop());
       let v = stack.pop();
-      input[y][x] = v;
+      put(x, y, v);
       break;
     }
     // Exit
