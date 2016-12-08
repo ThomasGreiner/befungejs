@@ -28,16 +28,24 @@ function put(x, y, v) {
 function move() {
   switch (dir) {
     case "right":
-      x++;
+      if (++x == input[y].length) {
+        x = 0;
+      }
       break;
     case "left":
-      x--;
+      if (--x < 0) {
+        x = input[y].length - 1;
+      }
       break;
     case "up":
-      y--;
+      if (--y < 0) {
+        y = input.length - 1;
+      }
       break;
     case "down":
-      y++;
+      if (++y == input.length) {
+        y = 0;
+      }
       break;
   }
   return get(x, y);
